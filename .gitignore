@@ -1,0 +1,4 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+/MyDrive/KIFIYA Projects/Rossmann-Pharmaceuticals/rossvenv/
