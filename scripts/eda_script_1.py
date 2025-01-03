@@ -12,8 +12,13 @@ def load_data(data_path=None):
     logging.info("Loading data...")
     
     if data_path:
-        dataset = pd.read_csv(data_path)
-        return dataset
+        try:
+            dataset = pd.read_csv(data_path)
+            logging.info("Data loaded successfully from %s", data_path)
+            return dataset
+        except Exception as e:
+            logging.error("Error loading data from %s: %s", data_path, e)
+            return None
     else:
         logging.warning("No data path provided.")
         return None
@@ -31,10 +36,12 @@ def clean_data(df):
         else:  # Fill other types with a placeholder
             df[column] = df[column].fillna('Unknown')
     
+    logging.info("Data cleaning completed.")
     return df
 
 def plot_promotion_distribution(train, test):
     """Plot the distribution of promotions in training and test sets."""
+    logging.info("Plotting promotion distribution...")
     plt.figure(figsize=(12, 6))
     
     # Count distribution in training set
@@ -56,6 +63,9 @@ def plot_promotion_distribution(train, test):
     plt.legend(title='Dataset')
     plt.grid(axis='y')  # Add grid for better readability
     plt.show()
+
+    logging.info("Promotion distribution plotted.")
+
 
 def analyze_promotions(df):
     """Analyze the effect of promotions on sales and customer behavior."""
@@ -90,11 +100,13 @@ def analyze_promotions(df):
     existing_sales = df[df['Promo'] == 0]['Sales'].sum()
     promo_sales = df[df['Promo'] == 1]['Sales'].sum()
 
-    print(f"Total Sales without Promo: {existing_sales}")
-    print(f"Total Sales with Promo: {promo_sales}")
+    logging.info("Total Sales without Promo: %s", existing_sales)
+    logging.info("Total Sales with Promo: %s", promo_sales)
+    
 
 def seasonal_analysis_with_holidays(df):
     """Analyze seasonal effects on sales, highlighting specific holidays."""
+    logging.info("Analyzing seasonal effects with holidays...")
     # Convert 'Date' to datetime
     df['Date'] = pd.to_datetime(df['Date'])
     
@@ -120,19 +132,26 @@ def seasonal_analysis_with_holidays(df):
     plt.grid(axis='y')
     plt.tight_layout()
     plt.show()
-
+    
+    logging.info("Seasonal analysis with holidays completed.")
 
 def customer_behavior_analysis(df):
     """Analyze customer behavior in relation to sales."""
+    logging.info("Analyzing customer behavior...")
+    
     plt.figure(figsize=(10, 5))
     sns.scatterplot(x='Customers', y='Sales', data=df)
     plt.title('Sales vs Number of Customers')
     plt.xlabel('Number of Customers')
     plt.ylabel('Sales')
     plt.show()
+    
+    logging.info("Customer behavior analysis completed.")
 
 def store_opening_impact(df):
     """Analyze the impact of store openings on sales."""
+    logging.info("Analyzing impact of store openings on sales...")
+    
     opening_sales = df[df['Open'] == 1].groupby('Store')['Sales'].mean().reset_index()
     
     plt.figure(figsize=(12, 6))
@@ -142,9 +161,13 @@ def store_opening_impact(df):
     plt.ylabel('Average Sales')
     plt.xticks(rotation=90)
     plt.show()
-
+    
+    logging.info("Store opening impact analysis completed.")
+    
+    
 def holiday_analysis(df):
     """Analyze sales behavior before, during, and after holidays."""
+    logging.info("Analyzing holiday effects on sales...")
     # Convert 'Date' to datetime
     df['Date'] = pd.to_datetime(df['Date'])
     
@@ -177,6 +200,7 @@ def holiday_analysis(df):
     plt.grid(axis='y')  # Add grid for better readability
     plt.show()
 
+    logging.info("Holiday analysis completed.")
 
 def promo_effectiveness_analysis(sales_df, store_df):
     """Analyze the effectiveness of promotions by store type."""
@@ -198,9 +222,11 @@ def promo_effectiveness_analysis(sales_df, store_df):
     plt.tight_layout()
     plt.show()
     
+    logging.info("Promo effectiveness analysis completed.")
+    
 def analyze_weekday_open_stores(train_data):
     """Identify stores open on all weekdays and analyze their weekend sales."""
-    
+    logging.info("Analyzing stores open on all weekdays and their sales...")
     # Convert 'Date' to datetime if not already
     train_data['Date'] = pd.to_datetime(train_data['Date'])
     
@@ -243,12 +269,14 @@ def analyze_weekday_open_stores(train_data):
     plt.legend(title='Sales Period')
     plt.tight_layout()
     plt.show()
-
+    
+    logging.info("Analysis on weekday and sales completed.")
     return open_all_weekdays, avg_sales
 
 
 def store_hours_analysis(df):
     """Analyze trends during store opening and closing times."""
+    logging.info("Analyzing trends during store opening and closing times...")
     open_sales = df.groupby('Open')['Sales'].mean().reset_index()
     plt.figure(figsize=(8, 5))
     sns.barplot(x='Open', y='Sales', data=open_sales)
@@ -276,11 +304,12 @@ def analyze_assortment_effect_on_sales(store_data, train_data):
     plt.tight_layout()
     plt.show()
     
+    logging.info("Analyzing trends during store opening and closing times completed.")
     return assortment_sales
 
 def analyze_competitor_distance_effect(store_data, train_data):
     """Analyze how the distance to the next competitor affects sales, focusing on city center stores."""
-    
+    logging.info("Analyzing the distance to the next competitor affects sales...")
     # Merge store data with sales data
     merged_data = pd.merge(train_data, store_data, on='Store', how='left')
 
@@ -314,12 +343,12 @@ def analyze_competitor_distance_effect(store_data, train_data):
     plt.legend()
     plt.tight_layout()
     plt.show()
-
+    logging.info("Analyzing the distance to the next competitor affects sales completed.")
     return city_center_data
 
 def analyze_new_competitors_effect(store_data, train_data):
     """Check how the opening or reopening of new competitors affects stores."""
-    
+    logging.info("Analyzing the opening or reopening of new competitors...")
     # Merge store data with sales data
     merged_data = pd.merge(train_data, store_data, on='Store', how='left')
 
@@ -378,5 +407,6 @@ def analyze_new_competitors_effect(store_data, train_data):
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
-
+    
+    logging.info("Analyzing the opening or reopening of new competitors completed.")
     return sales_comparison
