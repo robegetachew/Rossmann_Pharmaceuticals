@@ -46,3 +46,7 @@ To run this notebook:
 
 ## Acknowledgments
 This analysis is part of a larger study on customer behavior in the retail sector. Thanks to everyone who contributed insights and feedback.
+
+**Author:** Robe Getachew  
+**Email:** robegetachew12@gmail.com
+
