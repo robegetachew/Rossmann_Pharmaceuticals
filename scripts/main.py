@@ -3,8 +3,6 @@ from scripts.logger_config import *
 
 # Set up the logger
 logger = setup_logger()
-
-
 def split_date(df):
     logger.info("Split date into Date, Year, and Month")
     df['Date'] = pd.to_datetime(df['Date'])
