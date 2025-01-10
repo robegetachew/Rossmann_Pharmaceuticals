@@ -7,9 +7,6 @@ import sys
 sys.path.append('../')
 from fastapi.staticfiles import StaticFiles
 from sklearn.preprocessing import StandardScaler
-
-
-
 def load_scaler(scaler_path):
     with open(scaler_path, 'rb') as file:
         scaler = pickle.load(file)
