@@ -5,8 +5,6 @@ import numpy as np
 
 # Set up the logger
 logger = setup_logger()
-
-
 def remove_outliers(df,exclude_columns=None):
     if exclude_columns is None:
         exclude_columns = []
