@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Prediction UI</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        async function submitData(event) {
+            event.preventDefault(); 
+
+            const data = {
+                Id: parseInt(document.getElementById('Id').value),
+                Store: parseInt(document.getElementById('Store').value),
+                DayOfWeek: parseInt(document.getElementById('DayOfWeek').value),
+                Open: parseInt(document.getElementById('Open').value),
+                Promo: parseInt(document.getElementById('Promo').value),
+                StateHoliday: parseInt(document.getElementById('StateHoliday').value),
+                SchoolHoliday: parseInt(document.getElementById('SchoolHoliday').value),
+                StoreType: parseInt(document.getElementById('StoreType').value),
+                Assortment: parseInt(document.getElementById('Assortment').value),
+                CompetitionDistance: parseFloat(document.getElementById('CompetitionDistance').value),
+                CompetitionOpenSinceMonth: parseInt(document.getElementById('CompetitionOpenSinceMonth').value),
+                CompetitionOpenSinceYear: parseInt(document.getElementById('CompetitionOpenSinceYear').value),
+                Promo2: parseInt(document.getElementById('Promo2').value),
+                Promo2SinceWeek: parseInt(document.getElementById('Promo2SinceWeek').value),
+                Promo2SinceYear: parseInt(document.getElementById('Promo2SinceYear').value),
+                PromoInterval: parseInt(document.getElementById('PromoInterval').value),
+                Year: parseInt(document.getElementById('Year').value),
+                Month: parseInt(document.getElementById('Month').value),
+                Day: parseInt(document.getElementById('Day').value),
+                WeekOfYear: parseInt(document.getElementById('WeekOfYear').value),
+                CompetitionOpen: parseInt(document.getElementById('CompetitionOpen').value),
+                Promo2Open: parseInt(document.getElementById('Promo2Open').value),
+                IsPromo2Month: parseInt(document.getElementById('IsPromo2Month').value),
+                day_of_week: parseInt(document.getElementById('day_of_week').value),
+                is_weekend: parseInt(document.getElementById('is_weekend').value),
+                days_to_holiday: parseInt(document.getElementById('days_to_holiday').value),
+                days_after_holiday: parseInt(document.getElementById('days_after_holiday').value),
+                beginning_of_month: parseInt(document.getElementById('beginning_of_month').value),
+                mid_of_month: parseInt(document.getElementById('mid_of_month').value),
+                end_of_month: parseInt(document.getElementById('end_of_month').value),
+                is_month_end: parseInt(document.getElementById('is_month_end').value),
+                is_month_start: parseInt(document.getElementById('is_month_start').value),
+                quarter: parseInt(document.getElementById('quarter').value)
+            };
+
+            const response = await fetch('http://127.0.0.1:8000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            document.getElementById('output').innerText = JSON.stringify(result.prediction, null, 2);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+    <h1 class="form-title">FastAPI Prediction UI</h1>
+    <form onsubmit="submitData(event)">
+        <div class="form"></div>
+        <label for="Id">Id:</label>
+        <input id="Id" type="number" value="0"><br>
+
+        <label for="Store">Store:</label>
+        <input id="Store" type="number" value="0"><br>
+
+        <label for="DayOfWeek">DayOfWeek:</label>
+        <input id="DayOfWeek" type="number" value="0"><br>
+
+        <label for="Open">Open:</label>
+        <input id="Open" type="number" value="0"><br>
+
+        <label for="Promo">Promo:</label>
+        <input id="Promo" type="number" value="0"><br>
+
+        <label for="StateHoliday">StateHoliday:</label>
+        <input id="StateHoliday" type="number" value="0"><br>
+
+        <label for="SchoolHoliday">SchoolHoliday:</label>
+        <input id="SchoolHoliday" type="number" value="0"><br>
+
+        <label for="StoreType">StoreType:</label>
+        <input id="StoreType" type="number" value="0"><br>
+
+        <label for="Assortment">Assortment:</label>
+        <input id="Assortment" type="number" value="0"><br>
+
+        <label for="CompetitionDistance">CompetitionDistance:</label>
+        <input id="CompetitionDistance" type="number" value="0"><br>
+
+        <label for="CompetitionOpenSinceMonth">CompetitionOpenSinceMonth:</label>
+        <input id="CompetitionOpenSinceMonth" type="number" value="0"><br>
+
+        <label for="CompetitionOpenSinceYear">CompetitionOpenSinceYear:</label>
+        <input id="CompetitionOpenSinceYear" type="number" value="0"><br>
+
+        <label for="Promo2">Promo2:</label>
+        <input id="Promo2" type="number" value="0"><br>
+
+        <label for="Promo2SinceWeek">Promo2SinceWeek:</label>
+        <input id="Promo2SinceWeek" type="number" value="0"><br>
+
+        <label for="Promo2SinceYear">Promo2SinceYear:</label>
+        <input id="Promo2SinceYear" type="number" value="0"><br>
+
+        <label for="PromoInterval">PromoInterval:</label>
+        <input id="PromoInterval" type="number" value="0"><br>
+
+        <label for="Year">Year:</label>
+        <input id="Year" type="number" value="0"><br>
+
+        <label for="Month">Month:</label>
+        <input id="Month" type="number" value="0"><br>
+
+        <label for="Day">Day:</label>
+        <input id="Day" type="number" value="0"><br>
+
+        <label for="WeekOfYear">WeekOfYear:</label>
+        <input id="WeekOfYear" type="number" value="0"><br>
+
+        <label for="CompetitionOpen">CompetitionOpen:</label>
+        <input id="CompetitionOpen" type="number" value="0"><br>
+
+        <label for="Promo2Open">Promo2Open:</label>
+        <input id="Promo2Open" type="number" value="0"><br>
+
+        <label for="IsPromo2Month">IsPromo2Month:</label>
+        <input id="IsPromo2Month" type="number" value="0"><br>
+
+        <label for="day_of_week">day_of_week:</label>
+        <input id="day_of_week" type="number" value="0"><br>
+
+        <label for="is_weekend">is_weekend:</label>
+        <input id="is_weekend" type="number" value="0"><br>
+
+        <label for="days_to_holiday">days_to_holiday:</label>
+        <input id="days_to_holiday" type="number" value="0"><br>
+
+        <label for="days_after_holiday">days_after_holiday:</label>
+        <input id="days_after_holiday" type="number" value="0"><br>
+
+        <label for="beginning_of_month">beginning_of_month:</label>
+        <input id="beginning_of_month" type="number" value="0"><br>
+
+        <label for="mid_of_month">mid_of_month:</label>
+        <input id="mid_of_month" type="number" value="0"><br>
+
+        <label for="end_of_month">end_of_month:</label>
+        <input id="end_of_month" type="number" value="0"><br>
+
+        <label for="is_month_end">is_month_end:</label>
+        <input id="is_month_end" type="number" value="0"><br>
+
+        <label for="is_month_start">is_month_start:</label>
+        <input id="is_month_start" type="number" value="0"><br>
+
+        <label for="quarter">quarter:</label>
+        <input id="quarter" type="number" value="0"><br>
+
+        <button type="submit">Submit</button>
+    </form>
+    <h2>Response:</h2>
+    <pre id="output"></pre>
+</div>
+</body>
+</html>
