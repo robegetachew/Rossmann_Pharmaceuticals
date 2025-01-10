@@ -33,9 +33,10 @@ The project structure is organized to support reproducible and scalable data pro
 ```
 # Installation
 
->>> git clone https://github.com/Jenber-Ligab/Pharmaceuticals
+>>> git clone https://github.com/Robegetachew/Rossmann_Pharmaceuticals
 
->> cd Pharmaceuticals
+
+>> cd Rossmann_Pharmaceuticals
 
 ### Create virtual environment
 
